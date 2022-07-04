@@ -44,6 +44,12 @@ class _MoviesPage extends State<MoviesPage> {
         builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
           final PageController controller = PageController();
 
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
           if (snapshot.hasData) {
             if (snapshot.data != null) {
               var movieWidgets = <MovieWidget>[];
