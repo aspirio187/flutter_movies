@@ -20,7 +20,7 @@ class Movie {
   factory Movie.fromJson(Map<String, dynamic> json) {
     List<Genre> genresTmp = <Genre>[];
 
-    for (var genreJson in json['genre_ids']) {
+    for (var genreJson in json['genres']) {
       genresTmp.add(Genre.fromJson(genreJson));
     }
 
