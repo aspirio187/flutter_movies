@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movies/models/movie.dart';
 import 'package:flutter_movies/widgets/tag_widget.dart';
@@ -15,10 +16,17 @@ class MovieWidget extends StatelessWidget {
       height: 300,
     );
 
+    CachedNetworkImage img = CachedNetworkImage(
+      placeholder: ((context, url) => const CircularProgressIndicator()),
+      imageUrl: movie.posterPath,
+      width: 150,
+      height: 300,
+    );
+
     return Flex(
       direction: Axis.vertical,
       children: [
-        image,
+        img,
         const Divider(),
         Text(
           movie.originalTitle,

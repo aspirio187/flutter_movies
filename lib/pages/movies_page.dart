@@ -12,7 +12,7 @@ class MoviesPage extends StatefulWidget {
 
 class _MoviesPage extends State<MoviesPage> {
   final MovieService _movieService = MovieService();
-
+  List<Movie> _upComingMovies = <Movie>[];
   int _selectedIndex = 0;
 
   @override
@@ -40,7 +40,7 @@ class _MoviesPage extends State<MoviesPage> {
         });
 
     var upcomingMovies = FutureBuilder(
-        future: _movieService.getUpcomingMoviesAsync(1),
+        future: _getUpcomingMovies(),
         builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
           final PageController controller = PageController();
 
@@ -101,5 +101,14 @@ class _MoviesPage extends State<MoviesPage> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  Future<List<Movie>> _getUpcomingMovies() async {
+    if (_upComingMovies.isEmpty) {
+      _upComingMovies = await _movieService.getUpcomingMoviesAsync(1);
+      return _upComingMovies;
+    } else {
+      return _upComingMovies;
+    }
   }
 }
