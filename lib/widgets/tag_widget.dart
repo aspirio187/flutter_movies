@@ -18,7 +18,7 @@ class _TagWidgetState extends State<TagWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Flex(
+    return Wrap(
       direction: Axis.horizontal,
       children: _generateTags(),
     );
@@ -31,14 +31,13 @@ class _TagWidgetState extends State<TagWidget> {
       double width = (genre.name.length * _fontSize) + 2;
 
       tmp.add(Container(
-        height: _fontSize + 2,
+        height: _fontSize * 2,
         width: width,
-        color: Colors.lightBlue,
+        color: Colors.white,
         child: Material(
-          borderRadius:
-              BorderRadius.all(Radius.circular(_fontSize.toDouble() / 2)),
+          borderRadius: BorderRadius.all(Radius.circular(_fontSize * 2)),
           child: Padding(
-            padding: const EdgeInsets.all(0.5),
+            padding: const EdgeInsets.all(1.5),
             child: Container(
               alignment: Alignment.center,
               child: Text(genre.name,
