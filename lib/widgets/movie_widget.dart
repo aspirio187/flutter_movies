@@ -15,9 +15,8 @@ class MovieWidget extends StatelessWidget {
       height: 500,
     );
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+    return Flex(
+      direction: Axis.vertical,
       children: [
         image,
         const Divider(),
@@ -27,23 +26,24 @@ class MovieWidget extends StatelessWidget {
           textAlign: TextAlign.center,
           style: const TextStyle(fontSize: 18),
         ),
-        Row(
-          children: [
-            Text(movie.language),
-            const Spacer(),
-            Text(movie.releaseDate)
-          ],
-        ),
-        _generateTags()
+        const Divider(),
+        Text('Langue: ' + movie.language),
+        const Divider(),
+        Text('Date de sortie :' + movie.releaseDate),
+        const Divider(),
+        _generateTags(),
       ],
     );
   }
 
   Tags _generateTags() {
     return Tags(
-      textField: TagsTextField(textStyle: const TextStyle(fontSize: 10)),
       itemCount: movie.genres.length,
       itemBuilder: (int index) {
+        if (movie.genres.isEmpty) {
+          return ItemTags(index: 0, title: 'No tags');
+        }
+
         final genre = movie.genres[index];
 
         return ItemTags(

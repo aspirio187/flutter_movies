@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter_movies/models/genre.dart';
 import 'package:flutter_movies/models/movie.dart';
 import 'package:http/http.dart' as http;
 

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_movies/models/movie.dart';
 import 'package:flutter_movies/services/movie_service.dart';
@@ -97,24 +95,5 @@ class _MoviesPage extends State<MoviesPage> {
     setState(() {
       _selectedIndex = index;
     });
-  }
-
-  Stream<Movie> _generateLatestMovieStream() {
-    late final StreamController<Movie> controller;
-
-    controller = StreamController<Movie>(
-      onListen: () => _movieService.getLastMovieAsync(),
-    );
-
-    return controller.stream;
-  }
-
-  Stream<List<Movie>> _generateUpcomingMoviesStream() {
-    late final StreamController<List<Movie>> controller;
-
-    controller = StreamController<List<Movie>>(
-        onListen: () => _movieService.getUpcomingMoviesAsync(1));
-
-    return controller.stream;
   }
 }
