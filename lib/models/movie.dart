@@ -51,4 +51,14 @@ class Movie {
         language: '',
         releaseDate: '');
   }
+
+  factory Movie.fromMovie(Movie movie) {
+    return Movie(
+        genres: movie.genres,
+        id: movie.id,
+        language: movie.language,
+        originalTitle: movie.originalTitle,
+        posterPath: movie.posterPath,
+        releaseDate: movie.releaseDate);
+  }
 }

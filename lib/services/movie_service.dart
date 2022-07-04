@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_movies/models/genre.dart';
 import 'package:flutter_movies/models/movie.dart';
 import 'package:http/http.dart' as http;
 
@@ -65,12 +66,35 @@ class MovieService {
     Map<String, dynamic> jsonResponse = jsonDecode(response.body);
 
     List<dynamic> results = jsonResponse['results'];
+
     List<Movie> tmp = <Movie>[];
 
-    for (var movie in results) {
-      tmp.add(Movie.fromJson(movie));
+    for (Map<String, dynamic> movie in results) {
+      final int movieId = movie['id'];
+
+      Movie movieFromId = await getMovieById(movieId);
+
+      tmp.add(movieFromId);
     }
 
     return tmp;
+  }
+
+  Future<Movie> getMovieById(int id) async {
+    final queryParameters = {'api_key': apiKey};
+
+    final String movieDetailsUrl = '/3/movie/$id';
+
+    final uri = Uri.https(baseMovieUrl, movieDetailsUrl, queryParameters);
+
+    final response = await http.get(uri);
+
+    if (response.statusCode != 200) {
+      throw Error();
+    }
+
+    Map<String, dynamic> jsonResult = jsonDecode(response.body);
+
+    return Movie.fromJson(jsonResult);
   }
 }
