@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movies/models/movie.dart';
-import 'package:flutter_tags/flutter_tags.dart';
+import 'package:flutter_movies/widgets/tag_widget.dart';
 
 class MovieWidget extends StatelessWidget {
   const MovieWidget({Key? key, required this.movie}) : super(key: key);
@@ -11,8 +11,8 @@ class MovieWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Image image = Image.network(
       movie.posterPath,
-      width: 250,
-      height: 500,
+      width: 150,
+      height: 300,
     );
 
     return Flex(
@@ -31,28 +31,8 @@ class MovieWidget extends StatelessWidget {
         const Divider(),
         Text('Date de sortie :' + movie.releaseDate),
         const Divider(),
-        _generateTags(),
+        TagWidget(genres: movie.genres)
       ],
-    );
-  }
-
-  Tags _generateTags() {
-    return Tags(
-      itemCount: movie.genres.length,
-      itemBuilder: (int index) {
-        if (movie.genres.isEmpty) {
-          return ItemTags(index: 0, title: 'No tags');
-        }
-
-        final genre = movie.genres[index];
-
-        return ItemTags(
-          key: Key(index.toString()),
-          index: index,
-          title: genre.name,
-        );
-      },
-      spacing: 1.5,
     );
   }
 }
